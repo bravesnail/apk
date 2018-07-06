@@ -8,4 +8,5 @@ env.bak/
 venv.bak/
 #zx-generate
 .DS_Store
+.idea/*
 
