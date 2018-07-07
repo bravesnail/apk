@@ -1,1 +1,1 @@
-# appium-kwai
+# appium-python-kwai
