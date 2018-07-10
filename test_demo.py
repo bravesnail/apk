@@ -8,7 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import time
+import time,os
 
 
 
@@ -27,6 +27,8 @@ class HelloWorld(unittest.TestCase):
         self.driver = webdriver.Remote("http://localhost:4723/wd/hub", desired_caps)
         # createContactBtn = self.driver.tap([(200,1500)],100)
         # createContactBtn.click()
+        if not os.path.exists('screenshot'):
+            os.mkdir('screenshot')
         #---login---#
         login_fb_btn = self.driver.find_element('xpath',"//android.widget.Button[contains(@text,'Facebook')]")
         login_fb_btn.click()
@@ -49,7 +51,7 @@ class HelloWorld(unittest.TestCase):
         follow_tab.click()
 
         sleep(1)
-        self.driver.save_screenshot('screenshot/swich_follow.png')
+        self.driver.save_screenshot('./screenshot/swich_follow.png')
         if self.is_exist('ID','com.kwai.video:id/tv_allow'):
             contact_allow = self.driver.find_element_by_id('com.kwai.video:id/tv_allow')
             contact_allow.click()
@@ -57,7 +59,7 @@ class HelloWorld(unittest.TestCase):
             ALLOW_btn = self.driver.find_element_by_id('com.android.packageinstaller:id/permission_allow_button')
             ALLOW_btn.click()
             sleep(1)
-        self.driver.save_screenshot('screenshot/contact_allow.png')
+        self.driver.save_screenshot('./screenshot/contact_allow.png')
         # ---click like---#
         trend_tab = self.driver.find_element('xpath', "//android.widget.RadioButton[contains(@text,'Trending')]")
         trend_tab.click()
@@ -67,7 +69,7 @@ class HelloWorld(unittest.TestCase):
             photo.click()
             self.like_it()
             self.driver.back()
-        self.driver.save_screenshot('screenshot/like_it.png')
+        self.driver.save_screenshot('./screenshot/like_it.png')
         # ---koin---#
         if self.is_exist('ID','com.kwai.video:id/avatar'):
             side_bar = self.driver.find_element_by_id('com.kwai.video:id/avatar')
@@ -82,7 +84,7 @@ class HelloWorld(unittest.TestCase):
             withdraw_paypal = self.driver.find_element(By.XPATH,"//android.view.View[contains(@text,'Withdraw to PayPal')]")
             withdraw_paypal.click()
             sleep(1)
-            self.driver.save_screenshot('screenshot/withdraw_paypal.png')
+            self.driver.save_screenshot('./screenshot/withdraw_paypal.png')
             self.driver.back()
             self.driver.back()
         # ---profile share---#
@@ -108,7 +110,7 @@ class HelloWorld(unittest.TestCase):
         #     sleep(1)
         #     post_btn = self.driver.find_element(By.XPATH,"//android.widget.Button[contains(@text,'POST')]")
         #     post_btn.click()
-        #     self.driver.save_screenshot('screenshot/share_to_fb.png')
+        #     self.driver.save_screenshot('./screenshot/share_to_fb.png')
         #     sleep(5)
         #     self.driver.back()
 
@@ -143,9 +145,10 @@ class HelloWorld(unittest.TestCase):
         input_text.send_keys(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
         share_cancle = self.driver.find_elements_by_class_name('android.widget.CheckBox')[0]
         share_cancle.click()
-        self.driver.save_screenshot('screenshot/ready_to_post.png')
+        self.driver.save_screenshot('./screenshot/ready_to_post.png')
         post_btn = self.driver.find_element_by_id('com.kwai.video:id/post')
         post_btn.click()
+        sleep(1)
         if self.is_exist('ID','com.kwai.video:id/positive_btn'):
             positivi_btn = self.driver.find_element_by_id('com.kwai.video:id/positive_btn')
             positivi_btn.click()
@@ -155,7 +158,7 @@ class HelloWorld(unittest.TestCase):
             allow_btn.click()
             sleep(1)
         WebDriverWait(self.driver, 30).until(EC.presence_of_element_located((By.XPATH, "//android.widget.RadioButton[contains(@text,'Following')]")))
-        self.driver.save_screenshot('screenshot/post_success.png')
+        self.driver.save_screenshot('./screenshot/post_success.png')
 
 
 
