@@ -9,4 +9,5 @@ venv.bak/
 #zx-generate
 .DS_Store
 .idea
+screenshot/
 
